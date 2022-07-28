@@ -13,7 +13,7 @@ var logger TransactionLogger
 func initializeTransactionLog() error {
 	var err error
 
-	logger, err = NewFileTransactionLogger("/tmp/transactions.log")
+	logger, err = NewFileTransactionLogger("transactions.log")
 	if err != nil {
 		return fmt.Errorf("failed to create transaction logger: %w", err)
 	}
@@ -60,5 +60,5 @@ func main() {
 	r.HandleFunc("/v1/{key}", keyValuePutHandler).Methods("PUT")
 	r.HandleFunc("/v1/{key}", keyValueDeleteHandler).Methods("DELETE")
 
-	log.Fatal(http.ListenAndServeTLS(":8080", "./utils/gen_certs/cert.pem", "./utils/gen_certs/key.pem", r))
+	log.Fatal(http.ListenAndServeTLS(":8080", "cert.pem", "key.pem", r))
 }
